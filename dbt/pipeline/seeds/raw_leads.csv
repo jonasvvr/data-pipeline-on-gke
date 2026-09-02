@@ -1,0 +1,8 @@
+lead_id,email,campaign_id,created_date,converted_customer_id
+9001,ada@example.com,C1,2024-01-02,1
+9002,grace@example.com,C1,2024-01-15,2
+9003,linus@example.com,C2,2024-01-30,3
+9004,margaret@example.com,C2,2024-02-10,4
+9005,alan@example.com,C3,2024-02-25,5
+9006,katherine@example.com,C3,2024-03-18,6
+9007,unconverted1@example.com,C3,2024-03-19,

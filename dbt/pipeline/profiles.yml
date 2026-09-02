@@ -1,0 +1,15 @@
+pipeline:
+  target: "{{ env_var('DBT_TARGET', 'gke') }}"
+  outputs:
+    gke:
+      type: bigquery
+      # No keyfile, no service-account JSON: the pod's Kubernetes ServiceAccount
+      # is bound to a GCP service account via Workload Identity (Exercise 01), so
+      # google-auth's Application Default Credentials resolve automatically from
+      # the pod's metadata server. `method: oauth` is what tells dbt to use ADC
+      # instead of looking for a keyfile.
+      method: oauth
+      project: "{{ env_var('GCP_PROJECT_ID') }}"
+      dataset: gke_silver
+      location: "{{ env_var('BQ_LOCATION', 'europe-west1') }}"
+      threads: 4

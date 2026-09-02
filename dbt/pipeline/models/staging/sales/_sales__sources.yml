@@ -1,0 +1,10 @@
+version: 2
+
+sources:
+  - name: sales
+    schema: gke_bronze
+    tables:
+      - name: raw_orders
+        description: One row per order, as landed from the sales source system.
+      - name: raw_customers
+        description: One row per customer, as landed from the sales source system.

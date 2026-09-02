@@ -1,0 +1,10 @@
+version: 2
+
+sources:
+  - name: marketing
+    schema: gke_bronze
+    tables:
+      - name: raw_campaigns
+        description: One row per marketing campaign, as landed from the marketing source system.
+      - name: raw_leads
+        description: One row per lead, as landed from the marketing source system.

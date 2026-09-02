@@ -1,0 +1,37 @@
+# Helm values for the official Airflow chart (apache-airflow/airflow), used in
+# Exercise 02. KubernetesExecutor means every DAG task (including the dbt
+# KubernetesPodOperator tasks from Cosmos) runs as its own pod, scheduled by
+# GKE, rather than a fixed pool of long-lived Celery workers.
+executor: KubernetesExecutor
+
+images:
+  airflow:
+    repository: apache/airflow
+    tag: 2.10.5
+
+dags:
+  gitSync:
+    enabled: true
+    repo: PLACEHOLDER_GIT_REPO_URL
+    branch: main
+    # Syncs the whole course directory, not just airflow/dags/: the scheduler
+    # also needs dbt/pipeline/target/manifest.json and profiles.yml to render
+    # the DAG (Exercise 05) without ever needing a live BigQuery connection --
+    # airflow-runner (see manifests/01-provision/serviceaccounts.yaml) has none.
+    subPath: "data_pipeline_on_gke"
+
+# Airflow's own scheduler/webserver/trigger pods run as this KSA, bound via
+# Workload Identity (Exercise 01) to a GCP service account that can read
+# BigQuery job status -- this SA is distinct from the dbt-runner KSA the DAG
+# assigns per-pod in operator_args, which is scoped to actually write BigQuery.
+serviceAccount:
+  create: false
+  name: airflow-runner
+
+webserver:
+  service:
+    type: ClusterIP
+
+config:
+  core:
+    load_examples: "False"

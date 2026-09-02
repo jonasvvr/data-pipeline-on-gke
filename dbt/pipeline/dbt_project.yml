@@ -1,0 +1,25 @@
+name: pipeline
+version: "1.0.0"
+config-version: 2
+
+profile: pipeline
+
+model-paths: ["models"]
+seed-paths: ["seeds"]
+clean-targets: ["target", "dbt_packages"]
+
+models:
+  pipeline:
+    staging:
+      +materialized: view
+      +schema: gke_silver
+    intermediate:
+      +materialized: ephemeral
+      +schema: gke_silver
+    marts:
+      +materialized: table
+      +schema: gke_gold
+
+seeds:
+  pipeline:
+    +schema: gke_bronze
