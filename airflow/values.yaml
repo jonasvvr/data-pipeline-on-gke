@@ -12,7 +12,7 @@ images:
 dags:
   gitSync:
     enabled: true
-    repo: git@github.com:jonasvvr/data-pipeline-on-gke.git
+    repo: https://github.com/jonasvvr/data-pipeline-on-gke.git
     branch: main
     # Syncs the whole repo, not just airflow/dags/: the scheduler also needs
     # dbt/pipeline/target/manifest.json and profiles.yml to render the DAG
