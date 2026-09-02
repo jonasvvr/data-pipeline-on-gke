@@ -12,13 +12,13 @@ images:
 dags:
   gitSync:
     enabled: true
-    repo: PLACEHOLDER_GIT_REPO_URL
+    repo: git@github.com:jonasvvr/data-pipeline-on-gke.git
     branch: main
-    # Syncs the whole course directory, not just airflow/dags/: the scheduler
-    # also needs dbt/pipeline/target/manifest.json and profiles.yml to render
-    # the DAG (Exercise 05) without ever needing a live BigQuery connection --
+    # Syncs the whole repo, not just airflow/dags/: the scheduler also needs
+    # dbt/pipeline/target/manifest.json and profiles.yml to render the DAG
+    # (Exercise 05) without ever needing a live BigQuery connection --
     # airflow-runner (see manifests/01-provision/serviceaccounts.yaml) has none.
-    subPath: "data_pipeline_on_gke"
+    subPath: ""
 
 # Airflow's own scheduler/webserver/trigger pods run as this KSA, bound via
 # Workload Identity (Exercise 01) to a GCP service account that can read

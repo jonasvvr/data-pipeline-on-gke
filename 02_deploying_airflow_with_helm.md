@@ -22,7 +22,7 @@ Airflow's scheduler, webserver, and triggerer are themselves long-running Deploy
 ```bash
 sed -i '' "s#PLACEHOLDER_GIT_REPO_URL#$(git remote get-url origin)#" airflow/values.yaml
 ```
-`subPath: data_pipeline_on_gke/airflow/dags` is already set in `values.yaml` — gitSync clones the whole repo but Airflow only reads DAGs from that subdirectory.
+`gitSync.subPath` in `values.yaml` scopes which part of the cloned repo Airflow reads from — leave it empty if your remote's root *is* `data_pipeline_on_gke/` (e.g. you pushed just this course folder as its own repo), or set it to `data_pipeline_on_gke` if your remote is a monorepo containing this folder alongside others.
 
 ### 2. Add the chart repo and install
 ```bash
